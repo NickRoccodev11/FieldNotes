@@ -20,8 +20,9 @@ require("./config/passport")(passport);
 //Connect To Database
 connectDB();
 
-//Using EJS for views
-app.set("view engine", "ejs");
+//Using JSX for views
+app.set("view engine", "jsx");
+app.engine('jsx', require('express-react-views').createEngine());
 
 //Static Folder
 app.use(express.static("public"));
