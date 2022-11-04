@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from './components/Main.jsx'
 
-export default function SignUp(props) {
+export default function SignUp({messages}) {
     return (
         <Main>
             <main className="container">
@@ -13,8 +13,8 @@ export default function SignUp(props) {
                             )
                             : null
                         }
-                        {props.messages.info
-                            ? props.messages.info.map((el, i) =>
+                        {messages.info
+                            ? messages.info.map((el, i) =>
                                 <div key={i} className=" alert alert-danger">{el.msg}</div>
                             )
                             : null

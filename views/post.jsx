@@ -1,26 +1,26 @@
 import React from 'react';
 import Main from './components/Main.jsx'
 
-export default function Post(props) {
+export default function Post({post, user}) {
     return (
         <Main>
             <div className="container">
                 <div className="row justify-content-center mt-5">
                     <div className="col-6">
-                        <h2> {props.post.title}</h2>
-                        <img className="img-fluid" src={props.post.image} />
+                        <h2> {post.title}</h2>
+                        <img className="img-fluid" src={post.image} />
                         <div className="row justify-content-between">
                             <form
                                 className="col-1"
-                                action={`/post/likePost/${props.post.id}?_method=PUT`}
+                                action={`/post/likePost/${post.id}?_method=PUT`}
                                 method="POST"
                             >
                                 <button className="btn btn-primary fa fa-heart" type="submit"></button>
                             </form>
-                            <h3 className="col-3">Likes: {props.post.likes} </h3>
-                            {props.post.user == props.user.id && (
+                            <h3 className="col-3">Likes: {post.likes} </h3>
+                            {post.user == user.id && (
                                 <form
-                                    action={`/post/deletePost/${props.post.id}?_method=DELETE`}
+                                    action={`/post/deletePost/${post.id}?_method=DELETE`}
                                     method="POST"
                                     className="col-3"
                                 >
@@ -31,7 +31,7 @@ export default function Post(props) {
                         </div>
                     </div>
                     <div className="col-3 mt-5">
-                        <p>{props.post.caption}</p>
+                        <p>{post.caption}</p>
                     </div>
                     <div className="col-6 mt-5">
                         <a className="btn btn-primary" href="/profile">Return to Profile</a>

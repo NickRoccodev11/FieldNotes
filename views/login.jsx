@@ -1,20 +1,20 @@
 import React from 'react';
 import Main from './components/Main.jsx'
 
-export default function Login(props) {
+export default function Login({ messages }) {
     return (
         <Main>
             <main className="container">
                 <div className="row justify-content-center">
                     <section className="col-6 mt-5">
-                        {props.messages.errors
-                            ? props.messages.errors.map((el, i) =>
+                        {messages.errors
+                            ? messages.errors.map((el, i) =>
                                 <div key={i} className=" alert alert-danger">{el.msg}</div>
                             )
                             : null
                         }
-                        {props.messages.info
-                            ? props.messages.info.map((el, i) =>
+                        {messages.info
+                            ? messages.info.map((el, i) =>
                                 <div key={i} className=" alert alert-danger">{el.msg}</div>
                             )
                             : null
