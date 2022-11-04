@@ -1,5 +1,6 @@
 import React from 'react';
 import Main from './components/Main.jsx'
+import Messages from './components/messages.jsx'
 
 export default function Login({ messages }) {
     return (
@@ -7,21 +8,10 @@ export default function Login({ messages }) {
             <main className="container">
                 <div className="row justify-content-center">
                     <section className="col-6 mt-5">
-                        {messages.errors
-                            ? messages.errors.map((el, i) =>
-                                <div key={i} className=" alert alert-danger">{el.msg}</div>
-                            )
-                            : null
-                        }
-                        {messages.info
-                            ? messages.info.map((el, i) =>
-                                <div key={i} className=" alert alert-danger">{el.msg}</div>
-                            )
-                            : null
-                        }
+                    <Messages messages = {messages} />
                         <form action="/login" method="POST">
                             <div className="mb-3">
-                                <label for="exampleInputEmail1" className="form-label"
+                                <label htmlFor="exampleInputEmail1" className="form-label"
                                 >Email address</label
                                 >
                                 <input
@@ -33,7 +23,7 @@ export default function Login({ messages }) {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label for="exampleInputPassword1" className="form-label">Password</label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                                 <input
                                     type="password"
                                     className="form-control"

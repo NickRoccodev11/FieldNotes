@@ -16,15 +16,15 @@ export default function Profile({user, posts}) {
                             <h2>Add a post</h2>
                             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
                                 <div className="mb-3">
-                                    <label for="title" className="form-label">Title</label>
+                                    <label htmlFor="title" className="form-label">Title</label>
                                     <input type="text" className="form-control" id="title" name="title" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="caption" className="form-label">Caption</label>
+                                    <label htmlFor="caption" className="form-label">Caption</label>
                                     <textarea className="form-control" id="caption" name="caption"></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="imgUpload" className="form-label">Image</label>
+                                    <label htmlFor="imgUpload" className="form-label">Image</label>
                                     <input type="file" className="form-control" id="imageUpload" name="file" />
                                 </div>
                                 <button type="submit" className="btn btn-primary" value="Upload">Submit</button>
