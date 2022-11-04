@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from './components/Main.jsx'
 
-export default function Profile({user, posts}) {
+export default function Profile({ user, posts }) {
     return (
         <Main>
             <div className="container">
@@ -14,7 +14,7 @@ export default function Profile({user, posts}) {
                         </div>
                         <div className="mt-5">
                             <h2>Add a post</h2>
-                            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+                            <form action="/post/createPost" encType="multipart/form-data" method="POST">
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
                                     <input type="text" className="form-control" id="title" name="title" />
@@ -35,7 +35,7 @@ export default function Profile({user, posts}) {
                         <ul className="row list-unstyled">
 
                             {posts.map(post =>
-                                <li className="col-6 justify-content-between mt-5">
+                                <li key={post._id} className="col-6 justify-content-between mt-5">
                                     <a href={`/post/${post._id}`}>
                                         <img className="img-fluid" src={post.image}></img>
                                     </a>
