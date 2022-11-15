@@ -1,13 +1,23 @@
 import React from 'react';
 import Main from './components/Main.jsx'
+import CommentList from './components/CommentList'
 
-export default function Post({post, user}) {
+export default function Post({ post, user }) {
+    Date.prototype.ymd = function () {
+        var mm = this.getMonth() + 1;
+        var dd = this.getDate();
+        return [this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        dd > 9 ? '' : '0' + dd].join('/')
+    }
+
     return (
         <Main>
             <div className="container">
                 <div className="row justify-content-center mt-5">
                     <div className="col-6">
                         <h2> {post.title}</h2>
+                        <h4> {post.createdAt.ymd()}</h4>
                         <img className="img-fluid" src={post.image} />
                         <div className="row justify-content-between">
                             <form
@@ -33,6 +43,20 @@ export default function Post({post, user}) {
                     <div className="col-3 mt-5">
                         <p>{post.caption}</p>
                     </div>
+                    <div className="mt-5">
+                        <h2>Add a comment</h2>
+                        <form action={`/comment/createComment/${post._id}`} method="POST">
+                            <div className="mb-3">
+                                <label htmlFor="comment" className="form-label">Comment</label>
+                                <input type="text" className="form-control" id="comment" name="comment" />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div className="row justify-content-center mt-5">
+                    {/* <CommentList comments={comments} />  */}
+                </div>
+
                     <div className="col-6 mt-5">
                         <a className="btn btn-primary" href="/profile">Return to Profile</a>
                         <a className="btn btn-primary" href="/feed">Return to Feed</a>
