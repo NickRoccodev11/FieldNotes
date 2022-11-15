@@ -53,7 +53,7 @@ export default function Post({ post, user, comments }) {
                         </form>
                     </div>
                     <div className="row justify-content-center mt-5">
-                        <CommentList comments={comments} /> 
+                        <CommentList comments={comments} user={user}  /> 
                        
                     </div>
 
