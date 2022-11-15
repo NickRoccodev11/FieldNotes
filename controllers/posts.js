@@ -23,7 +23,6 @@ module.exports = {
     try {
       const post = await Post.findById(req.params.id);
       const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
-      // console.log(comments)
       res.render("post", { post: post, user: req.user, comments: comments});
     } catch (err) {
       console.log(err);
@@ -39,7 +38,6 @@ module.exports = {
         image: result.secure_url,
         cloudinaryId: result.public_id,
         caption: req.body.caption,
-        likes: 0,
         user: req.user.id,
       });
       console.log("Post has been added!");
@@ -49,13 +47,32 @@ module.exports = {
     }
   },
   likePost: async (req, res) => {
+
     try {
-      await Post.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $inc: { likes: 1 },
+     let post =  await Post.find({ _id: req.params.id })
+        let check;
+        post.forEach((post)=> {
+          console.log(post)
+          console.log(req.user.id)
+          check = post.likes.includes(req.user.userName)
+        })
+        if(!check){
+          await Post.findOneAndUpdate(
+            {
+            _id: req.params.id 
+          },
+          {
+            $push: {likes: req.user.userName}
+          })
+        }else{
+          await Post.findOneAndUpdate(
+            {
+            _id: req.params.id 
+          },
+          {
+            $pull: {likes: req.user.userName}
+          })
         }
-      );
       console.log("Likes +1");
       res.redirect(`/post/${req.params.id}`);
     } catch (err) {

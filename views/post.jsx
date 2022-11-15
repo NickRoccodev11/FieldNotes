@@ -3,6 +3,7 @@ import Main from './components/Main.jsx'
 import CommentList from './components/CommentList'
 
 export default function Post({ post, user, comments }) {
+    //DATE FORMATTING
     Date.prototype.ymd = function () {
         var mm = this.getMonth() + 1;
         var dd = this.getDate();
@@ -10,6 +11,28 @@ export default function Post({ post, user, comments }) {
         (mm > 9 ? '' : '0') + mm,
         dd > 9 ? '' : '0' + dd].join('/')
     }
+// LIKES FORMATTING
+function likesRender(likesArr) {
+    let statement = ''
+    switch (likesArr.length) {
+        case 0:
+            statement = ''
+            break
+        case 1:
+            statement = `${likesArr[0]} likes this`
+            break
+        case 2: 
+            statement = `${likesArr[0]} and ${likesArr[1]} like this`
+            break
+        case 3:
+            statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr[2]} like this`
+            break
+        default:
+            statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr.length - 2} others like this`
+    }
+    return statement
+}
+
     return (
         <Main>
             <div className="container">
@@ -26,7 +49,10 @@ export default function Post({ post, user, comments }) {
                             >
                                 <button className="btn btn-primary fa fa-heart" type="submit"></button>
                             </form>
-                            <h3 className="col-3">Likes: {post.likes} </h3>
+                            <h3 className="col-3">
+                                {likesRender(post.likes)} 
+                             
+                                </h3>
                             {post.user == user.id && (
                                 <form
                                     action={`/post/deletePost/${post.id}?_method=DELETE`}
