@@ -2,7 +2,7 @@ import React from 'react';
 import Main from './components/Main.jsx'
 import CommentList from './components/CommentList'
 
-export default function Post({ post, user }) {
+export default function Post({ post, user, comments }) {
     Date.prototype.ymd = function () {
         var mm = this.getMonth() + 1;
         var dd = this.getDate();
@@ -10,7 +10,6 @@ export default function Post({ post, user }) {
         (mm > 9 ? '' : '0') + mm,
         dd > 9 ? '' : '0' + dd].join('/')
     }
-
     return (
         <Main>
             <div className="container">
@@ -54,8 +53,9 @@ export default function Post({ post, user }) {
                         </form>
                     </div>
                     <div className="row justify-content-center mt-5">
-                    {/* <CommentList comments={comments} />  */}
-                </div>
+                        <CommentList comments={comments} /> 
+                       
+                    </div>
 
                     <div className="col-6 mt-5">
                         <a className="btn btn-primary" href="/profile">Return to Profile</a>
