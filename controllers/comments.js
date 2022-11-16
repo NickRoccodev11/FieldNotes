@@ -17,4 +17,15 @@ module.exports = {
       console.log(err);
     }
   },
+  deleteComment: async (req, res) => {
+    try {
+   
+      await Comment.deleteOne({ _id: req.params.deleteid });
+      console.log("Deleted Post");
+      console.log(req.params.postid)
+      res.redirect("/post/"+req.params.postid);
+    } catch (err) {
+      res.redirect("/post/"+req.params.postid);
+    }
+  },
 };

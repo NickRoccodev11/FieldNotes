@@ -79,7 +79,11 @@ function likesRender(likesArr) {
                         </form>
                     </div>
                     <div className="row justify-content-center mt-5">
-                        <CommentList comments={comments} user={user}  /> 
+                        <CommentList
+                         comments={comments} 
+                         user={user}  
+                         post={post}
+                         /> 
                        
                     </div>
 
