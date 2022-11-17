@@ -23,6 +23,7 @@ module.exports = {
     try {
       const post = await Post.findById(req.params.id);
       const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
+      console.log(req.user)
       res.render("post", { post: post, user: req.user, comments: comments});
     } catch (err) {
       console.log(err);
@@ -39,6 +40,7 @@ module.exports = {
         cloudinaryId: result.public_id,
         caption: req.body.caption,
         user: req.user.id,
+        createdBy: req.user.userName
       });
       console.log("Post has been added!");
       res.redirect("/profile");
@@ -52,8 +54,6 @@ module.exports = {
      let post =  await Post.find({ _id: req.params.id })
         let check;
         post.forEach((post)=> {
-          console.log(post)
-          console.log(req.user.id)
           check = post.likes.includes(req.user.userName)
         })
         if(!check){

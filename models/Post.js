@@ -22,8 +22,9 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  comments:{
-    type: Array
+  createdBy:{
+    type: String,
+    ref: "User"
   },
   createdAt: {
     type: Date,

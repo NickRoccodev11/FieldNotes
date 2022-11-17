@@ -1,0 +1,6 @@
+friends option
+
+- if the user is not the owener of a particular post, show an "add" friend button
+-user model needs a friends array
+-if poster is already your friend, show "remove friend" button 
+-build out "add friend/remove friend" routes and controller

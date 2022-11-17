@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useSyncExternalStore } from 'react';
 import Main from './components/Main.jsx'
 import CommentList from './components/CommentList'
 
@@ -11,29 +11,31 @@ export default function Post({ post, user, comments }) {
         (mm > 9 ? '' : '0') + mm,
         dd > 9 ? '' : '0' + dd].join('/')
     }
-// LIKES FORMATTING
-function likesRender(likesArr) {
-    let statement = ''
-    switch (likesArr.length) {
-        case 0:
-            statement = ''
-            break
-        case 1:
-            statement = `${likesArr[0]} likes this`
-            break
-        case 2: 
-            statement = `${likesArr[0]} and ${likesArr[1]} like this`
-            break
-        case 3:
-            statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr[2]} like this`
-            break
-        default:
-            statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr.length - 2} others like this`
+
+    // LIKES FORMATTING
+    function likesRender(likesArr) {
+        let statement = ''
+        switch (likesArr.length) {
+            case 0:
+                statement = ''
+                break
+            case 1:
+                statement = `${likesArr[0]} likes this`
+                break
+            case 2:
+                statement = `${likesArr[0]} and ${likesArr[1]} like this`
+                break
+            case 3:
+                statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr[2]} like this`
+                break
+            default:
+                statement = `${likesArr[0]}, ${likesArr[1]} and ${likesArr.length - 2} others like this`
+        }
+        return statement
     }
-    return statement
-}
 
     return (
+
         <Main>
             <div className="container">
                 <div className="row justify-content-center mt-5">
@@ -50,9 +52,9 @@ function likesRender(likesArr) {
                                 <button className="btn btn-primary fa fa-heart" type="submit"></button>
                             </form>
                             <h3 className="col-3">
-                                {likesRender(post.likes)} 
-                             
-                                </h3>
+                                {likesRender(post.likes)}
+
+                            </h3>
                             {post.user == user.id && (
                                 <form
                                     action={`/post/deletePost/${post.id}?_method=DELETE`}
@@ -62,11 +64,28 @@ function likesRender(likesArr) {
                                     <button className="btn btn-primary fa fa-trash" type="submit"></button>
                                 </form>
                             )}
-
                         </div>
                     </div>
+
+                    {/* // CAPTION */}
                     <div className="col-3 mt-5">
-                        <p>{post.caption}</p>
+                        <p> {post.caption}</p>
+                    </div>
+
+                    {/* FRIEND/ POSTED BY */} 
+                     <div className="col-4 mt-5">
+                        <p>Posted by{post.user.toString() !== user.id.toString() ? `: ${post.createdBy}` : " you"}</p>
+                        {post.user.toString() !== user.id.toString() && !user.following.includes(post.createdBy) && (
+                            <form
+                                action={`/follow/followPoster/${post.id}/${user.id}/${post.createdBy}?_method=PUT`}
+                                method="POST"
+                                className="col-3"
+                            >
+                                <button className="btn btn-primary " type="submit"> Follow {post.createdBy}</button>
+                            </form>
+                        )}
+
+
                     </div>
                     <div className="mt-5">
                         <h2>Add a comment</h2>
@@ -80,11 +99,11 @@ function likesRender(likesArr) {
                     </div>
                     <div className="row justify-content-center mt-5">
                         <CommentList
-                         comments={comments} 
-                         user={user}  
-                         post={post}
-                         /> 
-                       
+                            comments={comments}
+                            user={user}
+                            post={post}
+                        />
+
                     </div>
 
                     <div className="col-6 mt-5">
