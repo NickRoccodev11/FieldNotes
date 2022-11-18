@@ -6,6 +6,8 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 //Comment Routes - simplified for now
 router.put("/followPoster/:postid/:id/:postMaker", followController.addFollow);
 
+router.get("/followFeed", followController.getFeed);
+
 
 
 module.exports = router;

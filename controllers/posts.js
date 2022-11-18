@@ -10,11 +10,10 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  },
-  getFeed: async (req, res) => {
+  }, getFeed: async (req, res) => {
     try {
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed", { posts: posts });
+      res.render("feed", { posts: posts, user: req.user });
     } catch (err) {
       console.log(err);
     }
@@ -22,9 +21,9 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
-      const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
+      const comments = await Comment.find({ post: req.params.id }).sort({ createdAt: "desc" }).lean();
       console.log(req.user)
-      res.render("post", { post: post, user: req.user, comments: comments});
+      res.render("post", { post: post, user: req.user, comments: comments });
     } catch (err) {
       console.log(err);
     }
@@ -51,28 +50,28 @@ module.exports = {
   likePost: async (req, res) => {
 
     try {
-     let post =  await Post.find({ _id: req.params.id })
-        let check;
-        post.forEach((post)=> {
-          check = post.likes.includes(req.user.userName)
-        })
-        if(!check){
-          await Post.findOneAndUpdate(
-            {
-            _id: req.params.id 
+      let post = await Post.find({ _id: req.params.id })
+      let check;
+      post.forEach((post) => {
+        check = post.likes.includes(req.user.userName)
+      })
+      if (!check) {
+        await Post.findOneAndUpdate(
+          {
+            _id: req.params.id
           },
           {
-            $push: {likes: req.user.userName}
+            $push: { likes: req.user.userName }
           })
-        }else{
-          await Post.findOneAndUpdate(
-            {
-            _id: req.params.id 
+      } else {
+        await Post.findOneAndUpdate(
+          {
+            _id: req.params.id
           },
           {
-            $pull: {likes: req.user.userName}
+            $pull: { likes: req.user.userName }
           })
-        }
+      }
       console.log("Likes +1");
       res.redirect(`/post/${req.params.id}`);
     } catch (err) {

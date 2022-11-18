@@ -1,6 +1,15 @@
-friends option
+follows option
 
-- if the user is not the owener of a particular post, show an "add" friend button
--user model needs a friends array
--if poster is already your friend, show "remove friend" button 
--build out "add friend/remove friend" routes and controller
+- XXXXif the user is not the owener of a particular post, show an "add" friend button DONE
+-xxxuser model needs a friends array
+-xxxbuild out "add follow" routes and controller
+
+
+HOW TO REMOVE FollowS?
+- possibly show them in the profile with a remove button
+
+FOLLOW FEED:
+-post has a "createdBy" field, user has a "following" field. both contain usernames
+-can we check if the createdBy is contained in the current user's following array?
+
+
