@@ -1,6 +1,7 @@
 import React from 'react';
-import Main from './components/Main.jsx'
-import PostList from './components/postlist.jsx';
+import Main from './components/Main'
+import PostList from './components/postlist';
+import FollowedList from './components/FollowedList';
 
 export default function Profile({ user, posts }) {
     return (
@@ -33,9 +34,13 @@ export default function Profile({ user, posts }) {
                         </div>
                     </div>
                     <div className="col-6">
-                        <PostList posts = {posts}/>
+                        <PostList posts={posts} />
                         <div className="row justify-content-center mt-5">
                             <a className="btn btn-primary" href="/feed">Return to Feed</a>
+                        </div>
+                        {/* Followers list */}
+                        <div className="mb-3">
+                           <FollowedList user={user} />
                         </div>
                     </div>
                 </div>

@@ -21,8 +21,7 @@ module.exports = {
     try {
 
       await Comment.deleteOne({ _id: req.params.deleteid });
-      console.log("Deleted Post");
-      console.log(req.params.postid)
+      console.log("Deleted Comment");
       res.redirect("/post/" + req.params.postid);
     } catch (err) {
       res.redirect("/post/" + req.params.postid);
